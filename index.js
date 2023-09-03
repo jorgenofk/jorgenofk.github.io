@@ -326,16 +326,16 @@ const div1 = document.getElementById("div1");
 const div2 = document.getElementById("div2");
 const select = document.getElementById("league");
 
-function checkLeague(){
-        const selectedLeague = select.value; // Get the selected league from the dropdown
-    
-        if (leagueTeams[selectedLeague]) {
-            allTeams = leagueTeams[selectedLeague];
-        } else {
-            // Handle the case when the selected league doesn't exist in the object
-            allTeams = []; // You can set it to an empty array or handle this differently
-        }
+function checkLeague() {
+    const selectedLeague = select.value; // Get the selected league from the dropdown
+
+    if (leagueTeams[selectedLeague]) {
+        allTeams = leagueTeams[selectedLeague];
+    } else {
+        // Handle the case when the selected league doesn't exist in the object
+        allTeams = []; // You can set it to an empty array or handle this differently
     }
+}
 
 function isSubset(subset, superset) {
     for (let item of subset) {
@@ -429,42 +429,44 @@ function displaySelectedPokemon() {
 }
 
 function findTeams() {
-    div2.innerHTML = "Suggested teams: <br><br>";
+    div2.innerHTML = "Suggested teams: <br><br>"; // Initialize div2 with default message
 
-    if (select.value === "nothing"){
-        div2.innerHTML = "You need to select a league."
+    if (select.value === "nothing") {
+        div2.innerHTML = "You need to select a league.";
         return;
     }
-    
+
+    let teamsFound = false; // Add a flag to check if any teams were found
+
     // Loop through all predefined teams and check if they are subsets of selected Pokémon
     for (let i = 0; i < allTeams.length; i++) {
         if (isSubset(allTeams[i], selectedPokemon)) {
             // Get the names of Pokémon in the team and join them with commas
             const teamNames = Array.from(allTeams[i]).join(", ");
             div2.innerHTML += teamNames + "<br><br> ";
+            teamsFound = true; // Set the flag to true if at least one team is found
         }
-    else {
-        if (select.value === "great"){
-        div2.innerHTML = "Cant find a good team with your pokemon. Get good n00b.<br><br>" +
-        "Here is a list of Great League teams you should aim for:<br><br>" +
-        "Swampert, Noctowl, Pidgeot<br> Altaria, Azumarill, Bastiodon<br> Altaria, Medicham, Registeel<br> Ninetales (Alolan), Swampert (Shadow), Trevenant<br>Trevenant, Bastiodon, Drapion<br>Lanturn, Altaria, Venusaur<br>Medicham, Noctowl, Stunfisk (Galarian)<br>Abomasnow (Shadow), Medicham, Sableye<br>Bastiodon, Medicham, Meganium<br>Azumarill, Ferrothorn, Lickitung<br>Stunfisk (Galarian), Noctowl, Trevenant<br>Stunfisk (Galarian), Altaria, Noctowl<br>Walrein, Galvantula, Medicham<br>Ninetales (Alolan), Lanturn, Umbreon<br>Victreebel (Shadow), Bastiodon, Lickitung<br>Noctowl, Lanturn, Stunfisk (Galarian)<br>Pelipper, Registeel, Stunfisk (Galarian)<br>Noctowl, Stunfisk (Galarian), Trevenant<br>Ninetales (Alolan), Swampert, Trevenant<br>Trevenant, Stunfisk (Galarian), Walrein<br>Bastiodon, Medicham, Victreebel<br>Bastiodon, Medicham, Victreebel (Shadow)<br>Medicham, Aurorus, Walrein<br>Medicham, Bastiodon, Stunfisk (Galarian)<br>Registeel, Pelipper, Sableye<br>Quagsire, Froslass, Noctowl<br>Noctowl, Lanturn, Stunfisk (Galarian)<br>Stunfisk (Galarian), Pelipper, Sableye<br>"
-        }
-    
-        if (select.value === "ultra"){
-        div2.innerHTML = "Cant find a good team with your pokemon. Get good n00b.<br><br>" +
-        "Here is a list of Ultra League teams you should aim for:<br><br>" +
-        "Registeel, Pidgeot, Virizon<br>Tapu Fini, Charizard (Shadow), Gliscor (Shadow)<br>Gliscor (Shadow), Jellicent, Registeel<br>Pidgeot, Cobalion, Trevenant<br>Gliscor (Shadow), Cobalion, Jellicent<br>Jellicent, Escavalier, Umbreon<br>Tapu Fini, Giratina (Altered), Registeel<br>Jellicent, Galvantula, Mandibuzz<br>Charizard, Escavalier, Umbreon<br>Tapu Fini, Gliscor, Trevenant<br>Giratina (Altered), Drapion (Shadow), Muk (Alolan) (Shadow)<br>Deoxys (Defense), Stunfisk (Galarian), Walrein<br>Charizard (Shadow), Kommo-o, Scrafty<br>Giratina (Altered), Charizard, Mewtwo (Armored)<br>Charizard (Shadow), Cobalion, Virizion<br>Pidgeot, Cobalion, Jellicent<br>Pidgeot, Cobalion, Cresselia<br>Articuno, Registeel, Trevenant<br>Charizard, Obstagoon, Registeel<br>Swampert, Charizard, Walrein<br>Tapu Fini, Registeel, Talonflame<br>Talonflame, Perrserker, Swampert<br>Poliwrath (Shadow), Drapion (Shadow), Muk (Alolan) (Shadow)<br>Obstagoon, Giratina (Altered), Trevenant<br>Walrein, Charizard, Swampert<br>Escavalier, Giratina (Altered), Walrein<br>Tapu Fini, Giratina (Altered), Registeel<br>Pidgeot, Cobalion, Virizion<br>Tapu Fini, Talonflame, Trevenant<br>Pidgeot, Cobalion, Regirock"
-        }
-    
-     if (select.value === "master"){
-        div2.innerHTML = "Cant find a good team with your pokemon. Get good n00b.<br><br>" +
-        "Here is a list of Master League teams you should aim for:<br><br>" +
-        "Palkia, Metagross, Zacian (Hero)<br>Giratina (Origin), Excadrill, Zacian (Hero)<br>Zarude, Dialga, Kyogre<br>Dragonite, Groudon, Metagross<br>Dialga, Excadrill, Landorus (Therian)<br>Excadrill, Dialga, Lugia<br>Dragonite, Excadrill, Metagross<br>Zarude, Dialga, Kyogre<br>Giratina (Origin), Dialga, Zacian (Hero)<br>Zacian (Hero), Dialga, Ho-Oh<br>Dragonite, Mamoswine (Shadow), Metagross<br>Giratina (Altered), Reshiram, Xerneas<br>Kyurem, Metagross, Mewtwo<br>Gyarados, Dragonite, Metagross<br>Groudon, Giratina (Origin), Snorlax (Shadow)<br>Dialga, Mewtwo, Zacian (Hero)<br>Dialga, Giratina (Origin), Lugia<br>Solgaleo, Dragonite, Gyarados<br>Landorus (Therian), Dialga, Kyogre<br>Dialga, Giratina (Origin), Kyogre<br>Ho-Oh, Dialga, Zacian (Hero)<br>Dialga, Giratina (Altered), Kyogre<br>Zacian (Hero), Mewtwo, Yveltal"
-
-     }
-
     }
-}}
+
+    // Check if no teams were found and update div2 accordingly
+    if (!teamsFound) {
+        if (select.value === "great") {
+            div2.innerHTML = "Can't find a good team with your Pokémon. Get good n00b.<br><br>" +
+                "Here is a list of Great League teams you should aim for:<br><br>" +
+                "Swampert, Noctowl, Pidgeot<br> Altaria, Azumarill, Bastiodon<br> Altaria, Medicham, Registeel<br> Ninetales (Alolan), Swampert (Shadow), Trevenant<br>Trevenant, Bastiodon, Drapion<br>Lanturn, Altaria, Venusaur<br>Medicham, Noctowl, Stunfisk (Galarian)<br>Abomasnow (Shadow), Medicham, Sableye<br>Bastiodon, Medicham, Meganium<br>Azumarill, Ferrothorn, Lickitung<br>Stunfisk (Galarian), Noctowl, Trevenant<br>Stunfisk (Galarian), Altaria, Noctowl<br>Walrein, Galvantula, Medicham<br>Ninetales (Alolan), Lanturn, Umbreon<br>Victreebel (Shadow), Bastiodon, Lickitung<br>Noctowl, Lanturn, Stunfisk (Galarian)<br>Pelipper, Registeel, Stunfisk (Galarian)<br>Noctowl, Stunfisk (Galarian), Trevenant<br>Ninetales (Alolan), Swampert, Trevenant<br>Trevenant, Stunfisk (Galarian), Walrein<br>Bastiodon, Medicham, Victreebel<br>Bastiodon, Medicham, Victreebel (Shadow)<br>Medicham, Aurorus, Walrein<br>Medicham, Bastiodon, Stunfisk (Galarian)<br>Registeel, Pelipper, Sableye<br>Quagsire, Froslass, Noctowl<br>Noctowl, Lanturn, Stunfisk (Galarian)<br>Stunfisk (Galarian), Pelipper, Sableye<br>"
+        } else if (select.value === "ultra") {
+            div2.innerHTML = "Can't find a good team with your Pokémon. Get good n00b.<br><br>" +
+                "Here is a list of Ultra League teams you should aim for:<br><br>" +
+                "Registeel, Pidgeot, Virizon<br>Tapu Fini, Charizard (Shadow), Gliscor (Shadow)<br>Gliscor (Shadow), Jellicent, Registeel<br>Pidgeot, Cobalion, Trevenant<br>Gliscor (Shadow), Cobalion, Jellicent<br>Jellicent, Escavalier, Umbreon<br>Tapu Fini, Giratina (Altered), Registeel<br>Jellicent, Galvantula, Mandibuzz<br>Charizard, Escavalier, Umbreon<br>Tapu Fini, Gliscor, Trevenant<br>Giratina (Altered), Drapion (Shadow), Muk (Alolan) (Shadow)<br>Deoxys (Defense), Stunfisk (Galarian), Walrein<br>Charizard (Shadow), Kommo-o, Scrafty<br>Giratina (Altered), Charizard, Mewtwo (Armored)<br>Charizard (Shadow), Cobalion, Virizion<br>Pidgeot, Cobalion, Jellicent<br>Pidgeot, Cobalion, Cresselia<br>Articuno, Registeel, Trevenant<br>Charizard, Obstagoon, Registeel<br>Swampert, Charizard, Walrein<br>Tapu Fini, Registeel, Talonflame<br>Talonflame, Perrserker, Swampert<br>Poliwrath (Shadow), Drapion (Shadow), Muk (Alolan) (Shadow)<br>Obstagoon, Giratina (Altered), Trevenant<br>Walrein, Charizard, Swampert<br>Escavalier, Giratina (Altered), Walrein<br>Tapu Fini, Giratina (Altered), Registeel<br>Pidgeot, Cobalion, Virizion<br>Tapu Fini, Talonflame, Trevenant<br>Pidgeot, Cobalion, Regirock"
+        } else if (select.value === "master") {
+            div2.innerHTML = "Can't find a good team with your Pokémon. Get good n00b.<br><br>" +
+                "Here is a list of Master League teams you should aim for:<br><br>" +
+                "Palkia, Metagross, Zacian (Hero)<br>Giratina (Origin), Excadrill, Zacian (Hero)<br>Zarude, Dialga, Kyogre<br>Dragonite, Groudon, Metagross<br>Dialga, Excadrill, Landorus (Therian)<br>Excadrill, Dialga, Lugia<br>Dragonite, Excadrill, Metagross<br>Zarude, Dialga, Kyogre<br>Giratina (Origin), Dialga, Zacian (Hero)<br>Zacian (Hero), Dialga, Ho-Oh<br>Dragonite, Mamoswine (Shadow), Metagross<br>Giratina (Altered), Reshiram, Xerneas<br>Kyurem, Metagross, Mewtwo<br>Gyarados, Dragonite, Metagross<br>Groudon, Giratina (Origin), Snorlax (Shadow)<br>Dialga, Mewtwo, Zacian (Hero)<br>Dialga, Giratina (Origin), Lugia<br>Solgaleo, Dragonite, Gyarados<br>Landorus (Therian), Dialga, Kyogre<br>Dialga, Giratina (Origin), Kyogre<br>Ho-Oh, Dialga, Zacian (Hero)<br>Dialga, Giratina (Altered), Kyogre<br>Zacian (Hero), Mewtwo, Yveltal"
+        }
+    }
+}
+
+
 
 function resetSelectedPokemon(){
 selectedPokemon.clear();
