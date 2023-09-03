@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvP team suggester POGO</title>
+    <link rel="stylesheet" type="text/css" href="pogo.css">
+</head>
+<body>
+    <h1>Pokemon GO PvP team suggestor</h1>
+
+    <label for="league">Select league:</label>
+    <select id="league">
+        <option value="nothing">No league selected</option>
+        <option value="great">Great league</option>
+        <option value="ultra">Ultra league</option>
+        <option value="master">Master league</option>
+    </select>
+<br><br>
+
+<p>Selected pokemons</p>
+<div id="div1"></div> <br>
+
+<button id="button">Show suggested team</button> <button id="resetButton">Reset</button>
+
+<div id="div2">Suggested teams will pop up here</div>
+
+<br>
+    <p>Search for pokemon</p>
+    <input type="text" id="pokemon-input">
+    <ul id="pokemon-list"></ul>
+
+    <!-- You can create a function to add more input fields if needed -->
+
+    <script src="index.js"></script>
+</body>
+</html>
